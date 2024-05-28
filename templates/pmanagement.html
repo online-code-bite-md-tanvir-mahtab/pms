@@ -1,0 +1,173 @@
+{% include 'header.html' %}
+<!-- component -->
+<section class="container mx-auto p-6 font-mono">
+  {% include 'pdata.html' %}
+    <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
+      <h2 class="text-2xl font-semibold text-gray-700 mb-4">Patient table</h2>
+      <div class="w-full overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+              <th class="px-4 py-3">Patient ID</th>
+              <th class="px-4 py-3">Name</th>
+              <th class="px-4 py-3">DOB</th>
+              <th class="px-4 py-3">Gender</th>
+              <th class="px-4 py-3">Phone</th>
+              <th class="px-4 py-3">Email</th>
+              <th class="px-4 py-3">PCP</th>
+              <th class="px-4 py-3">Insurance</th>
+              <th class="px-4 py-3">Balance</th>
+              <th class="px-4 py-3">Next Appointment</th>
+              <th class="px-4 py-3">Last Appointment</th>
+              <th class="px-4 py-3">Follow-Up</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            <tr class="text-gray-700">
+              <td class="px-4 py-3 border">001</td>
+              <td class="px-4 py-3 border">
+                <div class="flex items-center text-sm">
+                  <div class="relative w-8 h-8 mr-3 rounded-full md:block">
+                    <img class="object-cover w-full h-full rounded-full" src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="Patient Photo" loading="lazy" />
+                    <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-black">John Doe</p>
+                    <p class="text-xs text-gray-600">Patient</p>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3 text-ms font-semibold border">1985-06-15</td>
+              <td class="px-4 py-3 text-ms font-semibold border">Male</td>
+              <td class="px-4 py-3 text-ms font-semibold border">555-123-4567</td>
+              <td class="px-4 py-3 text-ms font-semibold border">john.doe@example.com</td>
+              <td class="px-4 py-3 text-ms font-semibold border">Dr. Smith</td>
+              <td class="px-4 py-3 text-ms font-semibold border">ABC Insurance</td>
+              <td class="px-4 py-3 text-ms font-semibold border">$200</td>
+              <td class="px-4 py-3 text-ms font-semibold border">2024-06-01</td>
+              <td class="px-4 py-3 text-ms font-semibold border">2024-05-10</td>
+              <td class="px-4 py-3 text-xs border">
+                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm"> Yes </span>
+              </td>
+            </tr>
+            
+          </tbody>
+        </table>
+        <!-- Sidebar Modal -->
+        <div id="patientSidebar" class="fixed inset-0 hidden bg-gray-800 bg-opacity-50 flex justify-end">
+          <div class="w-1/3 bg-white p-6 rounded-l-lg shadow-lg overflow-auto">
+            <div class="flex justify-between items-center">
+              <h2 class="text-xl font-bold">Patient Details</h2>
+              <button onclick="closeSidebar()" class="text-gray-600 hover:text-gray-900">&times;</button>
+            </div>
+            <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+              <li class="me-2">
+                <a href="#" id="activityTab" onclick="openTab(event, 'activity')" class="inline-block p-4 text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">Activity</a>
+              </li>
+              <li class="me-2">
+                <a href="#" id="personalInfoTab" onclick="openTab(event, 'personalInfo')" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Personal Info</a>
+              </li>
+            </ul>
+            <div id="activity" class="tab-content mt-4">
+              <div class="bg-white p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-bold mb-2">Appointments</h3>
+                <p class="mb-2"><strong>Last Appointment:</strong> <span id="sidebarPatientLastAppointment"></span></p>
+                <p class="mb-2"><strong>Next Appointment:</strong> <span id="sidebarPatientNextAppointment"></span></p>
+                <p><strong>Follow-Up:</strong> <span id="sidebarPatientFollowUp"></span></p>
+              </div>
+            </div>
+            <div id="personalInfo" class="tab-content mt-4 hidden">
+              <p><strong>Patient ID:</strong> <span id="sidebarPatientId"></span></p>
+              <p><strong>Name:</strong> <span id="sidebarPatientName"></span></p>
+              <p><strong>Date of Birth:</strong> <span id="sidebarPatientDOB"></span></p>
+              <p><strong>Gender:</strong> <span id="sidebarPatientGender"></span></p>
+              <p><strong>Phone:</strong> <span id="sidebarPatientPhone"></span></p>
+              <p><strong>Email:</strong> <span id="sidebarPatientEmail"></span></p>
+              <p><strong>Primary Care Provider:</strong> <span id="sidebarPatientPCP"></span></p>
+              <p><strong>Insurance:</strong> <span id="sidebarPatientInsurance"></span></p>
+              <p><strong>Balance:</strong> <span id="sidebarPatientBalance"></span></p>
+            </div>
+          </div>
+        </div>
+        
+        
+
+      </div>
+    </div>
+
+<script>
+  // Function to open the sidebar
+function openSidebar(patient) {
+  document.getElementById('sidebarPatientId').innerText = patient.id;
+  document.getElementById('sidebarPatientName').innerText = patient.name;
+  document.getElementById('sidebarPatientDOB').innerText = patient.dob;
+  document.getElementById('sidebarPatientGender').innerText = patient.gender;
+  document.getElementById('sidebarPatientPhone').innerText = patient.phone;
+  document.getElementById('sidebarPatientEmail').innerText = patient.email;
+  document.getElementById('sidebarPatientPCP').innerText = patient.pcp;
+  document.getElementById('sidebarPatientInsurance').innerText = patient.insurance;
+  document.getElementById('sidebarPatientBalance').innerText = patient.balance;
+  document.getElementById('sidebarPatientNextAppointment').innerText = patient.nextAppointment;
+  document.getElementById('sidebarPatientLastAppointment').innerText = patient.lastAppointment;
+  document.getElementById('sidebarPatientFollowUp').innerText = patient.followUp;
+
+  document.getElementById('patientSidebar').classList.remove('hidden');
+  document.getElementById('patientSidebar').classList.add('show');
+  openTab(null, 'activity');
+}
+
+// Function to close the sidebar
+function closeSidebar() {
+  document.getElementById('patientSidebar').classList.remove('show');
+  document.getElementById('patientSidebar').classList.add('hidden');
+}
+
+// Function to switch between tabs
+function openTab(event, tabName) {
+  const tabContents = document.querySelectorAll('.tab-content');
+  tabContents.forEach(tabContent => {
+      tabContent.classList.add('hidden');
+  });
+
+  document.getElementById(tabName).classList.remove('hidden');
+
+  const tabs = document.querySelectorAll('.flex-wrap a');
+  tabs.forEach(tab => {
+      tab.classList.remove('text-blue-600', 'bg-gray-100', 'dark:bg-gray-800', 'dark:text-blue-500');
+      tab.classList.add('hover:text-gray-600', 'hover:bg-gray-50', 'dark:hover:bg-gray-800', 'dark:hover:text-gray-300');
+  });
+
+  if (event) {
+      event.currentTarget.classList.add('text-blue-600', 'bg-gray-100', 'dark:bg-gray-800', 'dark:text-blue-500');
+      event.currentTarget.classList.remove('hover:text-gray-600', 'hover:bg-gray-50', 'dark:hover:bg-gray-800', 'dark:hover:text-gray-300');
+  }
+}
+
+// Add event listener to each table row
+document.querySelectorAll('tbody tr').forEach(row => {
+  row.addEventListener('click', () => {
+      const patient = {
+          id: row.children[0].innerText,
+          name: row.children[1].innerText,
+          dob: row.children[2].innerText,
+          gender: row.children[3].innerText,
+          phone: row.children[4].innerText,
+          email: row.children[5].innerText,
+          pcp: row.children[6].innerText,
+          insurance: row.children[7].innerText,
+          balance: row.children[8].innerText,
+          nextAppointment: row.children[9].innerText,
+          lastAppointment: row.children[10].innerText,
+          followUp: row.children[11].innerText.trim()
+      };
+      openSidebar(patient);
+  });
+});
+
+
+
+</script>
+
+
+  </section>
+{% include 'footer.html' %}

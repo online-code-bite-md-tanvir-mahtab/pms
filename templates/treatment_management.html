@@ -1,0 +1,108 @@
+{% include 'header.html' %}
+<div class="container mx-auto mt-10">
+    <!-- Button to toggle Add New Treatment form -->
+    <button onclick="toggleAddTreatmentForm()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">
+        Add New Treatment
+    </button>
+
+    <div class="bg-white p-6 rounded shadow">
+        <h2 class="text-xl font-bold mb-4">Treatment Management</h2>
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold">Phase 1</h3>
+        </div>
+        <table class="w-full">
+                    <thead>
+                        <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+                            <th class="px-4 py-3">Treatment ID</th>
+                            <th class="px-4 py-3">Description</th>
+                            <th class="px-4 py-3">Date</th>
+                            <th class="px-4 py-3">Cost</th>
+                            <th class="px-4 py-3">Follow-Up Date</th>
+                            <th class="px-4 py-3">Automated Reminders</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        <tr class="text-gray-700" onclick="openSidebar('001', 'Root Canal Treatment', '2024-05-15', '$500', '2024-06-15', 'Enabled')">
+                            <td class="px-4 py-3 border">001</td>
+                            <td class="px-4 py-3 border">Root Canal Treatment</td>
+                            <td class="px-4 py-3 border">2024-05-15</td>
+                            <td class="px-4 py-3 border">$500</td>
+                            <td class="px-4 py-3 border">2024-06-15</td>
+                            <td class="px-4 py-3 text-xs border">
+                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm"> Enabled </span>
+                            </td>
+                        </tr>
+                        <!-- Additional treatment rows can be added here -->
+                    </tbody>
+
+            </div>
+        </table>
+    </div>
+</div>
+<!-- Sidebar for Treatment Details -->
+<div id="treatmentSidebar" class="fixed inset-0 hidden bg-gray-800 bg-opacity-50 flex justify-end">
+    <!-- Add New Treatment form -->
+    <div class="w-1/3 bg-white p-6 rounded-l-lg shadow-lg overflow-auto">
+        <div class="flex justify-between items-center">
+            <h2 class="text-xl font-bold">Add New Treatment</h2>
+            <button onclick="closeSidebar()" class="text-gray-600 hover:text-gray-900">&times;</button>
+        </div>
+        <div class="mt-4">
+            <!-- Add New Treatment form content -->
+            <div class="p-6 bg-white rounded shadow">
+                <h2 class="text-xl font-bold mb-4">Add New Treatment</h2>
+                <form>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
+                            Description:
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" type="text" placeholder="Enter description" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="date">
+                            Date:
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date" type="date" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="cost">
+                            Cost ($):
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cost" type="number" placeholder="Enter cost" required>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                            Add Treatment
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    
+
+<script>
+    // Function to toggle visibility of Add New Treatment form
+    function toggleAddTreatmentForm() {
+        const treatmentSidebar = document.getElementById('treatmentSidebar');
+        if (treatmentSidebar.classList.contains('hidden')) {
+            // Show sidebar and form
+            treatmentSidebar.classList.remove('hidden');
+            treatmentSidebar.classList.add('show');
+        } else {
+            // Hide sidebar and form
+            closeSidebar();
+        }
+    }
+
+    // Function to close sidebar and form
+    function closeSidebar() {
+        const treatmentSidebar = document.getElementById('treatmentSidebar');
+        treatmentSidebar.classList.add('hidden');
+        treatmentSidebar.classList.remove('show');
+    }
+</script>
+{% include "footer.html" %}
